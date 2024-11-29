@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use anyhow::Result;\nuse chrono::{DateTime, Utc};\nuse serde::{Deserialize, Serialize};\n\nuse crate::{tpl::KEY_LEVEL, Template};\n\nuse crate::{bunyan, FormatterT};\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum Style {\n    Bunyan,\n}\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub struct Formatter {\n    pub style: Style,\n}\n\nimpl FormatterT for Formatter {\n    fn format_timestamp(\u0026self, timestamp: \u0026DateTime\u003cUtc\u003e) -\u003e String {\n        let ts_format = match self.style {\n            Style::Bunyan =\u003e bunyan::TIME_FORMAT,\n        };\n\n        timestamp.format(ts_format).to_string()\n    }\n\n    fn format(\u0026self, t: \u0026Template, _: \u0026str) -\u003e Result\u003cString\u003e {\n        let lv = match t.get(KEY_LEVEL) {\n            None =\u003e \"INFO\",\n            Some(l) =\u003e l.as_str().unwrap(),\n        };\n\n        let j = bunyan::build(t, lv);\n\n        Ok(serde_json::to_string(\u0026j)?)\n    }\n}\n",
+    "original_code": "use anyhow::Result;\nuse chrono::{DateTime, Utc};\nuse serde::{Deserialize, Serialize};\n\nuse crate::{tpl::KEY_LEVEL, Template};\n\nuse crate::{bunyan, FormatterT};\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum Style {\n    Bunyan,\n}\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub struct Formatter {\n    pub style: Style,\n}\n\nimpl FormatterT for Formatter {\n    fn format_timestamp(\u0026self, timestamp: \u0026DateTime\u003cUtc\u003e) -\u003e String {\n        let ts_format = match self.style {\n            Style::Bunyan =\u003e bunyan::TIME_FORMAT,\n        };\n\n        timestamp.format(ts_format).to_string()\n    }\n\n    fn format(\u0026self, t: \u0026Template, _: \u0026str) -\u003e Result\u003cString\u003e {\n        let lv = match t.get(KEY_LEVEL) {\n            None =\u003e \"INFO\",\n            Some(l) =\u003e l.as_str().unwrap(),\n        };\n\n        let j = bunyan::build(t, lv);\n\n        Ok(serde_json::to_string(\u0026j)?)\n    }\n}\n",
+    "path": "src/fmt/json.rs",
+    "model_usage_metrics": {
+        "Duration": 1037827170,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

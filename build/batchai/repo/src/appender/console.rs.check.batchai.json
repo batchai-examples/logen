@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use anyhow::{Context, Result};\nuse std::sync::mpsc::Sender;\n\nuse super::AppenderT;\nuse crate::base::Line;\n\npub struct ConsoleSender {\n    sender: Sender\u003cLine\u003e,\n}\n\nimpl ConsoleSender {\n    pub fn new(sender: \u0026Sender\u003cLine\u003e) -\u003e Self {\n        Self {\n            sender: sender.clone(),\n        }\n    }\n\n    pub fn write(\u0026self, line: \u0026Line) -\u003e Result\u003c()\u003e {\n        let line = line.clone();\n        self.sender\n            .send(line)\n            .with_context(|| \"failed to write to console\")\n    }\n}\n\npub struct Appender\u003c'a\u003e {\n    console: \u0026'a ConsoleSender,\n}\n\nimpl\u003c'a\u003e Appender\u003c'a\u003e {\n    pub fn new(console: \u0026'a ConsoleSender) -\u003e Box\u003cAppender\u003c'a\u003e\u003e {\n        Box::new(Self { console })\n    }\n}\n\nimpl\u003c'a\u003e AppenderT for Appender\u003c'a\u003e {\n    fn append(\u0026mut self, line: \u0026Line) -\u003e anyhow::Result\u003c()\u003e {\n        self.console.write(line)\n    }\n}\n",
+    "original_code": "use anyhow::{Context, Result};\nuse std::sync::mpsc::Sender;\n\nuse super::AppenderT;\nuse crate::base::Line;\n\npub struct ConsoleSender {\n    sender: Sender\u003cLine\u003e,\n}\n\nimpl ConsoleSender {\n    pub fn new(sender: \u0026Sender\u003cLine\u003e) -\u003e Self {\n        Self {\n            sender: sender.clone(),\n        }\n    }\n\n    pub fn write(\u0026self, line: \u0026Line) -\u003e Result\u003c()\u003e {\n        let line = line.clone();\n        self.sender\n            .send(line)\n            .with_context(|| \"failed to write to console\")\n    }\n}\n\npub struct Appender\u003c'a\u003e {\n    console: \u0026'a ConsoleSender,\n}\n\nimpl\u003c'a\u003e Appender\u003c'a\u003e {\n    pub fn new(console: \u0026'a ConsoleSender) -\u003e Box\u003cAppender\u003c'a\u003e\u003e {\n        Box::new(Self { console })\n    }\n}\n\nimpl\u003c'a\u003e AppenderT for Appender\u003c'a\u003e {\n    fn append(\u0026mut self, line: \u0026Line) -\u003e anyhow::Result\u003c()\u003e {\n        self.console.write(line)\n    }\n}\n",
+    "path": "src/appender/console.rs",
+    "model_usage_metrics": {
+        "Duration": 1037107994,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

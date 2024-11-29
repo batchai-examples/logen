@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use anyhow::Result;\nuse serde::{Deserialize, Serialize};\n\nuse crate::Line;\n\npub mod console;\npub use console::{Appender as ConsoleAppender, ConsoleSender};\n\npub mod file;\npub use file::{Appender as FileAppender, AppenderDef as FileAppenderDef};\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum AppenderDef {\n    Console,\n    File(FileAppenderDef),\n}\n\nimpl Default for AppenderDef {\n    fn default() -\u003e Self {\n        AppenderDef::Console\n    }\n}\n\nimpl AppenderDef {\n    pub fn build_appender\u003c'a\u003e(\n        \u0026'a self,\n        console: \u0026'a ConsoleSender,\n    ) -\u003e Result\u003cBox\u003cdyn AppenderT + 'a\u003e\u003e {\n        match self {\n            AppenderDef::Console =\u003e Ok(ConsoleAppender::new(console)),\n            AppenderDef::File(f) =\u003e Ok(FileAppender::new(f)?),\n        }\n    }\n}\n\npub trait AppenderT {\n    fn append(\u0026mut self, line: \u0026Line) -\u003e Result\u003c()\u003e;\n}\n",
+    "original_code": "use anyhow::Result;\nuse serde::{Deserialize, Serialize};\n\nuse crate::Line;\n\npub mod console;\npub use console::{Appender as ConsoleAppender, ConsoleSender};\n\npub mod file;\npub use file::{Appender as FileAppender, AppenderDef as FileAppenderDef};\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum AppenderDef {\n    Console,\n    File(FileAppenderDef),\n}\n\nimpl Default for AppenderDef {\n    fn default() -\u003e Self {\n        AppenderDef::Console\n    }\n}\n\nimpl AppenderDef {\n    pub fn build_appender\u003c'a\u003e(\n        \u0026'a self,\n        console: \u0026'a ConsoleSender,\n    ) -\u003e Result\u003cBox\u003cdyn AppenderT + 'a\u003e\u003e {\n        match self {\n            AppenderDef::Console =\u003e Ok(ConsoleAppender::new(console)),\n            AppenderDef::File(f) =\u003e Ok(FileAppender::new(f)?),\n        }\n    }\n}\n\npub trait AppenderT {\n    fn append(\u0026mut self, line: \u0026Line) -\u003e Result\u003c()\u003e;\n}\n",
+    "path": "src/appender/mod.rs",
+    "model_usage_metrics": {
+        "Duration": 1044496846,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

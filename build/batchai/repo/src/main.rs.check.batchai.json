@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use logen::{cli, Logen};\n\nfn main() {\n    if let Some(yaml) = cli::yaml_with_args().unwrap() {\n        let mut logen = Logen::from_yaml(\u0026yaml);\n        logen.init().unwrap();\n\n        Box::leak(logen).generate().unwrap();\n    }\n}\n",
+    "original_code": "use logen::{cli, Logen};\n\nfn main() {\n    if let Some(yaml) = cli::yaml_with_args().unwrap() {\n        let mut logen = Logen::from_yaml(\u0026yaml);\n        logen.init().unwrap();\n\n        Box::leak(logen).generate().unwrap();\n    }\n}\n",
+    "path": "src/main.rs",
+    "model_usage_metrics": {
+        "Duration": 1026572826,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

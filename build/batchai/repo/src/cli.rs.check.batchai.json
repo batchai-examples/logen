@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use crate::assets::Asset;\nuse anyhow::Context;\nuse anyhow::Result;\nuse clap::Parser;\nuse std::fs;\nuse std::str;\n\nstatic ASSET_EXAMPLE_FILE: \u0026str = \"example.yaml\";\nstatic ARG_EXAMPLE_CONFIG_FILE: \u0026str = \"\u003cexample\u003e\";\n\n/// Log generator\n#[derive(Parser, Debug)]\n#[clap(version, about, long_about = None)]\npub struct Args {\n    /// Path of the configuration file\n    #[clap(value_parser, required = false, default_value = ARG_EXAMPLE_CONFIG_FILE)]\n    pub config_file: String,\n\n    /// Generates using the example configuration file\n    #[clap(short, long, value_parser, required = false, default_value_t = false)]\n    pub example: bool,\n}\n\npub fn yaml_with_args() -\u003e Result\u003cOption\u003cString\u003e\u003e {\n    let args = Args::parse();\n\n    if args.example {\n        let a = Asset::get(ASSET_EXAMPLE_FILE).unwrap();\n        let yaml = String::from_utf8(a.data.as_ref().to_vec()).unwrap();\n        return Ok(Some(yaml));\n    }\n\n    let f = args.config_file;\n    if f == ARG_EXAMPLE_CONFIG_FILE {\n        // output embedded example configuration\n        let a = Asset::get(ASSET_EXAMPLE_FILE).unwrap();\n        println!(\"{}\", String::from_utf8(a.data.as_ref().to_vec())?);\n        return Ok(None);\n    }\n\n    let yaml =\n        fs::read_to_string(\u0026f).with_context(|| format!(\"failed to open config file: {}\", f))?;\n    return Ok(Some(yaml));\n}\n",
+    "original_code": "use crate::assets::Asset;\nuse anyhow::Context;\nuse anyhow::Result;\nuse clap::Parser;\nuse std::fs;\nuse std::str;\n\nstatic ASSET_EXAMPLE_FILE: \u0026str = \"example.yaml\";\nstatic ARG_EXAMPLE_CONFIG_FILE: \u0026str = \"\u003cexample\u003e\";\n\n/// Log generator\n#[derive(Parser, Debug)]\n#[clap(version, about, long_about = None)]\npub struct Args {\n    /// Path of the configuration file\n    #[clap(value_parser, required = false, default_value = ARG_EXAMPLE_CONFIG_FILE)]\n    pub config_file: String,\n\n    /// Generates using the example configuration file\n    #[clap(short, long, value_parser, required = false, default_value_t = false)]\n    pub example: bool,\n}\n\npub fn yaml_with_args() -\u003e Result\u003cOption\u003cString\u003e\u003e {\n    let args = Args::parse();\n\n    if args.example {\n        let a = Asset::get(ASSET_EXAMPLE_FILE).unwrap();\n        let yaml = String::from_utf8(a.data.as_ref().to_vec()).unwrap();\n        return Ok(Some(yaml));\n    }\n\n    let f = args.config_file;\n    if f == ARG_EXAMPLE_CONFIG_FILE {\n        // output embedded example configuration\n        let a = Asset::get(ASSET_EXAMPLE_FILE).unwrap();\n        println!(\"{}\", String::from_utf8(a.data.as_ref().to_vec())?);\n        return Ok(None);\n    }\n\n    let yaml =\n        fs::read_to_string(\u0026f).with_context(|| format!(\"failed to open config file: {}\", f))?;\n    return Ok(Some(yaml));\n}\n",
+    "path": "src/cli.rs",
+    "model_usage_metrics": {
+        "Duration": 1051482125,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

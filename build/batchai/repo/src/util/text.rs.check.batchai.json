@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "pub fn align_left(s: \u0026str, width: usize) -\u003e String {\n    let mut len = char_len(\u0026s);\n    if len \u003e= width {\n        return s.to_string();\n    }\n\n    let mut r = String::with_capacity(width);\n    r.push_str(s);\n    while len \u003c width {\n        r.push(' ');\n        len = len + 1;\n    }\n\n    return r;\n}\n\npub fn align_right(s: \u0026str, width: usize) -\u003e String {\n    let mut len = char_len(\u0026s);\n    if len \u003e= width {\n        return s.to_string();\n    }\n\n    let mut r = String::with_capacity(width);\n    r.push_str(s);\n    while len \u003c width {\n        r.insert(0, ' ');\n        len = len + 1;\n    }\n\n    return r;\n}\n\npub fn char_len(s: \u0026str) -\u003e usize {\n    let mut len = 0;\n    for _ in s.chars() {\n        len = len + 1;\n    }\n    len\n}\n",
+    "original_code": "pub fn align_left(s: \u0026str, width: usize) -\u003e String {\n    let mut len = char_len(\u0026s);\n    if len \u003e= width {\n        return s.to_string();\n    }\n\n    let mut r = String::with_capacity(width);\n    r.push_str(s);\n    while len \u003c width {\n        r.push(' ');\n        len = len + 1;\n    }\n\n    return r;\n}\n\npub fn align_right(s: \u0026str, width: usize) -\u003e String {\n    let mut len = char_len(\u0026s);\n    if len \u003e= width {\n        return s.to_string();\n    }\n\n    let mut r = String::with_capacity(width);\n    r.push_str(s);\n    while len \u003c width {\n        r.insert(0, ' ');\n        len = len + 1;\n    }\n\n    return r;\n}\n\npub fn char_len(s: \u0026str) -\u003e usize {\n    let mut len = 0;\n    for _ in s.chars() {\n        len = len + 1;\n    }\n    len\n}\n",
+    "path": "src/util/text.rs",
+    "model_usage_metrics": {
+        "Duration": 1321124489,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

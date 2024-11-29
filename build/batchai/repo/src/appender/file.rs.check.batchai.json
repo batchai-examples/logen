@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use anyhow::{Context, Result};\nuse serde::{Deserialize, Serialize};\nuse std::fs::File;\nuse std::io::Write;\n\nuse crate::base::Line;\n\nuse super::AppenderT;\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub struct AppenderDef {\n    path: String,\n\n    #[serde(default)]\n    truncate: bool,\n}\n\npub struct Appender\u003c'a\u003e {\n    def: \u0026'a AppenderDef,\n    file: File,\n}\n\nimpl\u003c'a\u003e Appender\u003c'a\u003e {\n    pub fn new(def: \u0026'a AppenderDef) -\u003e Result\u003cBox\u003cAppender\u003e\u003e {\n        Ok(Box::new(Self {\n            def,\n            file: {\n                let mut opts = File::options();  \n                opts.create(true);\n                if def.truncate {\n                    opts.write(true).truncate(def.truncate);\n                } else {\n                    opts.append(true);\n                }\n                opts.open(\u0026def.path)\n                .with_context(|| format!(\"failed to open file: {}\", def.path))?\n            }\n        }))\n    }\n}\n\nimpl\u003c'a\u003e AppenderT for Appender\u003c'a\u003e {\n    fn append(\u0026mut self, line: \u0026Line) -\u003e Result\u003c()\u003e {\n        let data = format!(\"{}\\n\", line.text);\n        self.file\n            .write_all(data.as_bytes())\n            .with_context(|| format!(\"failed to write to file: {}\", self.def.path))\n    }\n}\n",
+    "original_code": "use anyhow::{Context, Result};\nuse serde::{Deserialize, Serialize};\nuse std::fs::File;\nuse std::io::Write;\n\nuse crate::base::Line;\n\nuse super::AppenderT;\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub struct AppenderDef {\n    path: String,\n\n    #[serde(default)]\n    truncate: bool,\n}\n\npub struct Appender\u003c'a\u003e {\n    def: \u0026'a AppenderDef,\n    file: File,\n}\n\nimpl\u003c'a\u003e Appender\u003c'a\u003e {\n    pub fn new(def: \u0026'a AppenderDef) -\u003e Result\u003cBox\u003cAppender\u003e\u003e {\n        Ok(Box::new(Self {\n            def,\n            file: {\n                let mut opts = File::options();  \n                opts.create(true);\n                if def.truncate {\n                    opts.write(true).truncate(def.truncate);\n                } else {\n                    opts.append(true);\n                }\n                opts.open(\u0026def.path)\n                .with_context(|| format!(\"failed to open file: {}\", def.path))?\n            }\n        }))\n    }\n}\n\nimpl\u003c'a\u003e AppenderT for Appender\u003c'a\u003e {\n    fn append(\u0026mut self, line: \u0026Line) -\u003e Result\u003c()\u003e {\n        let data = format!(\"{}\\n\", line.text);\n        self.file\n            .write_all(data.as_bytes())\n            .with_context(|| format!(\"failed to write to file: {}\", self.def.path))\n    }\n}\n",
+    "path": "src/appender/file.rs",
+    "model_usage_metrics": {
+        "Duration": 1044550898,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

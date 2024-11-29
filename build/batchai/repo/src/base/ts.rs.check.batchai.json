@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use chrono::{DateTime, Duration, Utc};\nuse rand::Rng;\n\n#[derive(Debug)]\npub struct Timestamp {\n    end: DateTime\u003cUtc\u003e,\n    current: DateTime\u003cUtc\u003e,\n    interval: i64,\n}\n\nimpl Timestamp {\n    pub fn new(begin: \u0026DateTime\u003cUtc\u003e, end: \u0026DateTime\u003cUtc\u003e, num_of_lines: u64) -\u003e Self {\n        Timestamp {\n            interval: (end.timestamp_millis() - begin.timestamp_millis()) / num_of_lines as i64,\n            current: *begin,\n            end: end.clone(),\n        }\n    }\n\n    pub fn current(\u0026self) -\u003e \u0026DateTime\u003cUtc\u003e {\n        \u0026self.current\n    }\n\n    pub fn inc(\u0026mut self) -\u003e \u0026DateTime\u003cUtc\u003e {\n        let mut i = 0;\n        let max = self.interval;\n        while i \u003c 10 {\n            let itvl = rand::thread_rng().gen_range(0..((max as f64) * 1.8) as i64);\n            let new_value = self.current + Duration::milliseconds(itvl);\n            if new_value \u003c self.end {\n                self.current = new_value;\n                return \u0026self.current;\n            }\n\n            i = i + 1;\n        }\n\n        self.current = self.end;\n        return \u0026self.current;\n    }\n}\n",
+    "original_code": "use chrono::{DateTime, Duration, Utc};\nuse rand::Rng;\n\n#[derive(Debug)]\npub struct Timestamp {\n    end: DateTime\u003cUtc\u003e,\n    current: DateTime\u003cUtc\u003e,\n    interval: i64,\n}\n\nimpl Timestamp {\n    pub fn new(begin: \u0026DateTime\u003cUtc\u003e, end: \u0026DateTime\u003cUtc\u003e, num_of_lines: u64) -\u003e Self {\n        Timestamp {\n            interval: (end.timestamp_millis() - begin.timestamp_millis()) / num_of_lines as i64,\n            current: *begin,\n            end: end.clone(),\n        }\n    }\n\n    pub fn current(\u0026self) -\u003e \u0026DateTime\u003cUtc\u003e {\n        \u0026self.current\n    }\n\n    pub fn inc(\u0026mut self) -\u003e \u0026DateTime\u003cUtc\u003e {\n        let mut i = 0;\n        let max = self.interval;\n        while i \u003c 10 {\n            let itvl = rand::thread_rng().gen_range(0..((max as f64) * 1.8) as i64);\n            let new_value = self.current + Duration::milliseconds(itvl);\n            if new_value \u003c self.end {\n                self.current = new_value;\n                return \u0026self.current;\n            }\n\n            i = i + 1;\n        }\n\n        self.current = self.end;\n        return \u0026self.current;\n    }\n}\n",
+    "path": "src/base/ts.rs",
+    "model_usage_metrics": {
+        "Duration": 1040506208,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

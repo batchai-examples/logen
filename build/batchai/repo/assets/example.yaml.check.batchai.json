@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "apps:\n  nginx:\n    type: simple\n    num_of_lines: 10\n    begin_time: 2014-11-28T21:00:09+08:00\n    end_time: 2014-11-28T22:00:09+08:00\n    host:\n    - app1\n    - app2\n    - app3\n    - lb1\n    - lb2\n    mdc:\n      USER_ID: qiangyt\n      USER_ROLE: admin\n    logger:\n    - name: req\n      message:\n      - template: request begin\n        file: req_handler.c\n        line: 11\n        method: main\n      - template: request end\n        file: req_handler.c\n        line: 71\n        method: main\n        level: warn\n    - name: resp\n      message:\n      - template: response begin\n        file: resp_handler.c\n        line: 18\n        method: main\n        level: error\n      - template: response end\n        file: resp_handler.c\n        line: 88\n        method: main\n        level: debug\n    - name: session\n      message:\n      - template: session created\n        file: session_handler.c\n        line: 25\n        method: main\n        level: trace\n  service:\n    type: simple\n    output:\n      format:\n        json:\n          style: bunyan\n      appenders:\n        - file:\n            path: service.log\n    num_of_lines: 10\n    begin_time: 2014-11-28T21:00:09+08:00\n    end_time: 2014-11-28T22:00:09+08:00\n    host:\n    - app1\n    - app2\n    - app3\n    - lb1\n    - lb2\n    mdc:\n      USER_ID: qiangyt\n      USER_ROLE: admin\n    logger:\n    - name: req\n      message:\n      - template: request begin\n        file: req_handler.c\n        line: 11\n        method: main\n      - template: request end\n        file: req_handler.c\n        line: 71\n        method: main\n        level: warn\n    - name: resp\n      message:\n      - template: response begin\n        file: resp_handler.c\n        line: 18\n        method: main\n        level: error\n      - template: response end\n        file: resp_handler.c\n        line: 88\n        method: main\n        level: debug\n    - name: session\n      message:\n      - template: session created\n        file: session_handler.c\n        line: 25\n        method: main\n        level: trace\n",
+    "original_code": "apps:\n  nginx:\n    type: simple\n    num_of_lines: 10\n    begin_time: 2014-11-28T21:00:09+08:00\n    end_time: 2014-11-28T22:00:09+08:00\n    host:\n    - app1\n    - app2\n    - app3\n    - lb1\n    - lb2\n    mdc:\n      USER_ID: qiangyt\n      USER_ROLE: admin\n    logger:\n    - name: req\n      message:\n      - template: request begin\n        file: req_handler.c\n        line: 11\n        method: main\n      - template: request end\n        file: req_handler.c\n        line: 71\n        method: main\n        level: warn\n    - name: resp\n      message:\n      - template: response begin\n        file: resp_handler.c\n        line: 18\n        method: main\n        level: error\n      - template: response end\n        file: resp_handler.c\n        line: 88\n        method: main\n        level: debug\n    - name: session\n      message:\n      - template: session created\n        file: session_handler.c\n        line: 25\n        method: main\n        level: trace\n  service:\n    type: simple\n    output:\n      format:\n        json:\n          style: bunyan\n      appenders:\n        - file:\n            path: service.log\n    num_of_lines: 10\n    begin_time: 2014-11-28T21:00:09+08:00\n    end_time: 2014-11-28T22:00:09+08:00\n    host:\n    - app1\n    - app2\n    - app3\n    - lb1\n    - lb2\n    mdc:\n      USER_ID: qiangyt\n      USER_ROLE: admin\n    logger:\n    - name: req\n      message:\n      - template: request begin\n        file: req_handler.c\n        line: 11\n        method: main\n      - template: request end\n        file: req_handler.c\n        line: 71\n        method: main\n        level: warn\n    - name: resp\n      message:\n      - template: response begin\n        file: resp_handler.c\n        line: 18\n        method: main\n        level: error\n      - template: response end\n        file: resp_handler.c\n        line: 88\n        method: main\n        level: debug\n    - name: session\n      message:\n      - template: session created\n        file: session_handler.c\n        line: 25\n        method: main\n        level: trace\n",
+    "path": "assets/example.yaml",
+    "model_usage_metrics": {
+        "Duration": 1131351513,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "# logen\nA log generator to imitate real-world complex logging scenarios\n\nWorking in progress\n",
+    "original_code": "# logen\nA log generator to imitate real-world complex logging scenarios\n\nWorking in progress\n",
+    "path": "README.md",
+    "model_usage_metrics": {
+        "Duration": 689832145,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

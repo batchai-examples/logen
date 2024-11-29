@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use crate::util::teras;\nuse anyhow::{Context, Result};\nuse serde::Serialize;\nuse tera::{to_value, Tera, Value};\n\npub const KEY_LEVEL: \u0026str = \"level\";\n\n#[derive(Debug)]\npub struct Engine {\n    tera: Tera,\n}\n\nimpl Engine {\n    pub fn new() -\u003e Self {\n        Self {\n            tera: teras::default(),\n        }\n    }\n\n    pub fn add_template(\u0026mut self, template_name: \u0026str, content: \u0026str) -\u003e Result\u003c()\u003e {\n        self.tera\n            .add_raw_template(template_name, content)\n            .with_context(|| format!(\"failed to add template '{}': {}\", template_name, content))\n    }\n\n    pub fn render(\u0026self, template_name: \u0026str, data: \u0026tera::Context) -\u003e Result\u003cString\u003e {\n        self.tera\n            .render(template_name, data)\n            .with_context(|| format!(\"failed to render template '{}': {:?}\", template_name, data))\n    }\n}\n\nimpl Default for Engine {\n    fn default() -\u003e Self {\n        Self::new()\n    }\n}\n\npub struct Template\u003c'a\u003e {\n    data: tera::Context,\n    engine: \u0026'a Engine,\n}\n\nimpl\u003c'a\u003e Template\u003c'a\u003e {\n    pub fn new(engine: \u0026'a Engine) -\u003e Self {\n        Self {\n            data: tera::Context::new(),\n            engine,\n        }\n    }\n\n    pub fn set\u003cT: Serialize + ?Sized\u003e(\u0026mut self, key: \u0026str, val: \u0026T) {\n        self.data.insert(key, \u0026to_value(val).unwrap())\n    }\n\n    pub fn get(\u0026self, key: \u0026str) -\u003e Option\u003c\u0026Value\u003e {\n        self.data.get(key)\n    }\n\n    pub fn into_json(self) -\u003e Value {\n        self.data.into_json()\n    }\n\n    pub fn render(\u0026self, template_name: \u0026str) -\u003e Result\u003cString\u003e {\n        self.engine.render(template_name, \u0026self.data)\n    }\n}\n",
+    "original_code": "use crate::util::teras;\nuse anyhow::{Context, Result};\nuse serde::Serialize;\nuse tera::{to_value, Tera, Value};\n\npub const KEY_LEVEL: \u0026str = \"level\";\n\n#[derive(Debug)]\npub struct Engine {\n    tera: Tera,\n}\n\nimpl Engine {\n    pub fn new() -\u003e Self {\n        Self {\n            tera: teras::default(),\n        }\n    }\n\n    pub fn add_template(\u0026mut self, template_name: \u0026str, content: \u0026str) -\u003e Result\u003c()\u003e {\n        self.tera\n            .add_raw_template(template_name, content)\n            .with_context(|| format!(\"failed to add template '{}': {}\", template_name, content))\n    }\n\n    pub fn render(\u0026self, template_name: \u0026str, data: \u0026tera::Context) -\u003e Result\u003cString\u003e {\n        self.tera\n            .render(template_name, data)\n            .with_context(|| format!(\"failed to render template '{}': {:?}\", template_name, data))\n    }\n}\n\nimpl Default for Engine {\n    fn default() -\u003e Self {\n        Self::new()\n    }\n}\n\npub struct Template\u003c'a\u003e {\n    data: tera::Context,\n    engine: \u0026'a Engine,\n}\n\nimpl\u003c'a\u003e Template\u003c'a\u003e {\n    pub fn new(engine: \u0026'a Engine) -\u003e Self {\n        Self {\n            data: tera::Context::new(),\n            engine,\n        }\n    }\n\n    pub fn set\u003cT: Serialize + ?Sized\u003e(\u0026mut self, key: \u0026str, val: \u0026T) {\n        self.data.insert(key, \u0026to_value(val).unwrap())\n    }\n\n    pub fn get(\u0026self, key: \u0026str) -\u003e Option\u003c\u0026Value\u003e {\n        self.data.get(key)\n    }\n\n    pub fn into_json(self) -\u003e Value {\n        self.data.into_json()\n    }\n\n    pub fn render(\u0026self, template_name: \u0026str) -\u003e Result\u003cString\u003e {\n        self.engine.render(template_name, \u0026self.data)\n    }\n}\n",
+    "path": "src/base/tpl.rs",
+    "model_usage_metrics": {
+        "Duration": 1089970436,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

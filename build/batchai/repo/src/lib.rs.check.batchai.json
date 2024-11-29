@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "pub mod appender;\npub use appender::*;\npub mod apps;\npub use apps::*;\npub mod assets;\npub use assets::*;\npub mod base;\npub use base::*;\npub mod cli;\npub use cli::*;\npub mod fmt;\npub use fmt::*;\npub mod logen;\npub use logen::*;\npub mod util;\npub use util::*;\n",
+    "original_code": "pub mod appender;\npub use appender::*;\npub mod apps;\npub use apps::*;\npub mod assets;\npub use assets::*;\npub mod base;\npub use base::*;\npub mod cli;\npub use cli::*;\npub mod fmt;\npub use fmt::*;\npub mod logen;\npub use logen::*;\npub mod util;\npub use util::*;\n",
+    "path": "src/lib.rs",
+    "model_usage_metrics": {
+        "Duration": 673267791,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

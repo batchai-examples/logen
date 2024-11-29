@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use anyhow::Result;\nuse chrono::{DateTime, Utc};\n\nmod flat;\npub use flat::Formatter as FlatFormatter;\n\nmod json;\npub use json::Formatter as JsonFormatter;\n\npub mod bunyan;\n\nuse crate::Template;\n\npub trait FormatterT {\n    fn format_timestamp(\u0026self, timestamp: \u0026DateTime\u003cUtc\u003e) -\u003e String;\n    fn format(\u0026self, t: \u0026Template, template_name: \u0026str) -\u003e Result\u003cString\u003e;\n}\n",
+    "original_code": "use anyhow::Result;\nuse chrono::{DateTime, Utc};\n\nmod flat;\npub use flat::Formatter as FlatFormatter;\n\nmod json;\npub use json::Formatter as JsonFormatter;\n\npub mod bunyan;\n\nuse crate::Template;\n\npub trait FormatterT {\n    fn format_timestamp(\u0026self, timestamp: \u0026DateTime\u003cUtc\u003e) -\u003e String;\n    fn format(\u0026self, t: \u0026Template, template_name: \u0026str) -\u003e Result\u003cString\u003e;\n}\n",
+    "path": "src/fmt/mod.rs",
+    "model_usage_metrics": {
+        "Duration": 1027485007,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

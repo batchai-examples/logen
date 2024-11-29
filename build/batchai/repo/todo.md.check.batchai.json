@@ -1,0 +1,49 @@
+{
+    "has_issue": true,
+    "overall_severity": "minor",
+    "issues": [
+        {
+            "short_description": "Duplicate entry for 'pest'",
+            "detailed_explaination": "The crate 'pest' is listed twice in the list of dependencies. This can lead to confusion and potential issues during build or runtime.",
+            "suggestion": "Remove one of the duplicate entries for 'pest'.",
+            "issue_line_begin": 10,
+            "issue_line_end": 10,
+            "issue_reference_urls": [
+                "https://github.com/pest-parser/pest"
+            ],
+            "severity": "minor",
+            "severity_reason": "The issue is related to a minor mistake in the list of dependencies."
+        },
+        {
+            "short_description": "Unnecessary trailing comma",
+            "detailed_explaination": "There is an unnecessary trailing comma at the end of the last entry in the list of dependencies. This can cause issues in some parsers.",
+            "suggestion": "Remove the trailing comma from the last entry.",
+            "issue_line_begin": 29,
+            "issue_line_end": 29,
+            "issue_reference_urls": [],
+            "severity": "minor",
+            "severity_reason": "The issue is related to a minor formatting mistake."
+        }
+    ],
+    "fixed_code": "- anyhow\n- https://github.com/aws-cloudformation/cloudformation-guard\n- A parser and formatter for std::time::{SystemTime, Duration} : https://github.com/tailhook/humantime\n- https://github.com/y2kappa/timed： Rust crate to time your function using derive annotations.\n- lazy_static\n- globwalk： Recursively find files in a directory using globs.\n- pest：The Elegant Parser\n- https://github.com/rust-lang/regex\n- https://docs.rs/crate/unic-segment/latest：UNIC — Unicode Text Segmentation Algorithms\n- https://github.com/pikkr/pikkr: JSON parser which picks up values directly without performing tokenization in Rust\n- https://github.com/simd-lite/simd-json: Rust port of simdjson\n- https://github.com/cloudflare/quiche:  Savoury implementation of the QUIC transport protocol and HTTP/3\n- https://github.com/mozilla/neqo: Neqo, an Implementation of QUIC written in Rust\n- https://github.com/quinn-rs/quinn： Async-friendly QUIC implementation in Rust\n- https://github.com/hyperium/hyper：An HTTP library for Rust\n- https://github.com/seanmonstar/reqwest：An easy and powerful Rust HTTP Client\n- https://github.com/seanmonstar/warp: A super-easy, composable, web server framework for warp speeds.\n- https://github.com/pyrossh/rust-embed：Rust github action\n- ! https://github.com/sagiegurari/cargo-make: Rust task runner and build tool.\n- https://github.com/regexident/cargo-modules：A cargo plugin for showing a tree-like overview of a crate's modules.\n- https://github.com/greyblake/cargo-testify：Watches changes in a rust project, runs test and shows friendly notification\n- https://github.com/watchexec/cargo-watch: Watches over your Cargo project's source.\n- https://github.com/dtolnay/cargo-expand:Subcommand to show result of macro expansion\n- https://github.com/icepuma/rust-action: Rust github action\n- ! https://github.com/emk/rust-musl-builder: Docker images for compiling static Rust binaries using musl-libc and musl-gcc, with static versions of useful C libraries. Supports openssl and diesel crates.\n- https://github.com/kpcyrd/mini-docker-rust: Very small rust docker image\n- https://github.com/messense/rust-musl-cross: Docker images for compiling static Rust binaries using musl-cross\n- https://github.com/japaric/rust-cross:Everything you need to know about cross compiling Rust programs!\n- https://github.com/japaric/xargo: The sysroot manager that lets you build and customize `std`\n\n~~~~\n\ncolored = \"1.7.0\"\nyaml-rust = \"0.4.3\"\nurl = \"2.1.1\"\nlinked-hash-map = \"0.5.3\"\nasync-trait = \"0.1.30\"\nfutures = \"0.3.5\"\nnum_cpus = \"1.13.0\"\nhdrhistogram = \"7.4.0\"\nansi_term = \"0.12\"\nmlua = { version = \"0.7\", features = [\"lua54\", \"vendored\"] }\n",
+    "original_code": "- anyhow\n- https://github.com/aws-cloudformation/cloudformation-guard\n- A parser and formatter for std::time::{SystemTime, Duration} : https://github.com/tailhook/humantime\n- https://github.com/y2kappa/timed： Rust crate to time your function using derive annotations.\n- lazy_static\n- globwalk： Recursively find files in a directory using globs.\n- pest：The Elegant Parser： https://github.com/pest-parser/pest\n- https://github.com/rust-lang/regex\n- https://docs.rs/crate/unic-segment/latest：UNIC — Unicode Text Segmentation Algorithms\n- https://github.com/pikkr/pikkr: JSON parser which picks up values directly without performing tokenization in Rust\n- https://github.com/simd-lite/simd-json: Rust port of simdjson\n- https://github.com/cloudflare/quiche:  Savoury implementation of the QUIC transport protocol and HTTP/3\n- https://github.com/mozilla/neqo: Neqo, an Implementation of QUIC written in Rust\n- https://github.com/quinn-rs/quinn： Async-friendly QUIC implementation in Rust\n- https://github.com/hyperium/hyper：An HTTP library for Rust\n- https://github.com/seanmonstar/reqwest：An easy and powerful Rust HTTP Client\n- https://github.com/seanmonstar/warp: A super-easy, composable, web server framework for warp speeds.\n- https://github.com/pyrossh/rust-embed：Rust Macro which loads files into the rust binary at compile time during release and loads the file from the fs during dev.\n- https://github.com/denoland/deno：A modern runtime for JavaScript and TypeScript.\n- https://github.com/typicode/json-server：Get a full fake REST API with zero coding in less than 30 seconds (seriously)\n- https://github.com/slog-rs/slog：Structured, contextual, extensible, composable logging for Rustt\n- https://github.com/indradb/indradb：A graph database written in rust\n- https://github.com/pest-parser/pest：The Elegant Parser\n- https://github.com/brocode/fblog：Small command-line JSON Log viewer\n- https://github.com/darakian/ddh：A fast duplicate file finder\n- https://github.com/warp-tech/warpgate:Smart SSH bastion that works with any SSH client\n- https://github.com/kbknapp/cargo-count: a cargo subcommand for counting lines of code in Rust projects\n- https://github.com/kornelski/cargo-deb: A cargo subcommand that generates Debian packages from information in Cargo.toml\n- https://github.com/onur/cargo-license: Cargo subcommand to see license of dependencies\n- ! https://github.com/sagiegurari/cargo-make: Rust task runner and build tool.\n- https://github.com/regexident/cargo-modules：A cargo plugin for showing a tree-like overview of a crate's modules.\n- https://github.com/greyblake/cargo-testify：Watches changes in a rust project, runs test and shows friendly notification\n- https://github.com/watchexec/cargo-watch: Watches over your Cargo project's source.\n- https://github.com/dtolnay/cargo-expand:Subcommand to show result of macro expansion\n- https://github.com/icepuma/rust-action: Rust github action\n- ! https://github.com/emk/rust-musl-builder: Docker images for compiling static Rust binaries using musl-libc and musl-gcc, with static versions of useful C libraries. Supports openssl and diesel crates.\n- https://github.com/kpcyrd/mini-docker-rust: Very small rust docker image\n- https://github.com/messense/rust-musl-cross: Docker images for compiling static Rust binaries using musl-cross\n- https://github.com/japaric/rust-cross:Everything you need to know about cross compiling Rust programs!\n- https://github.com/japaric/xargo: The sysroot manager that lets you build and customize `std`\n-\n\n~~~~\ncolored = \"1.7.0\"\nyaml-rust = \"0.4.3\"\nurl = \"2.1.1\"\nlinked-hash-map = \"0.5.3\"\nasync-trait = \"0.1.30\"\nfutures = \"0.3.5\"\nnum_cpus = \"1.13.0\"\nhdrhistogram = \"7.4.0\"\nansi_term = \"0.12\"\nmlua = { version = \"0.7\", features = [\"lua54\", \"vendored\"] }\n",
+    "path": "todo.md",
+    "model_usage_metrics": {
+        "Duration": 18532917031,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use serde::{Deserialize, Serialize};\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum Level {\n    Fine,\n    Trace,\n    Debug,\n    Info,\n    Warn,\n    Error,\n    Fatal,\n}\n\npub const FINE: \u0026str = \"FINE\";\npub const TRACE: \u0026str = \"TRACE\";\npub const DEBUG: \u0026str = \"DEBUG\";\npub const INFO: \u0026str = \"INFO\";\npub const WARN: \u0026str = \"WARN\";\npub const ERROR: \u0026str = \"ERROR\";\npub const FATAL: \u0026str = \"FATAL\";\npub const DEFAULT: \u0026str = INFO;\n\nimpl Default for Level {\n    fn default() -\u003e Self {\n        Level::Info\n    }\n}\n\nimpl Level {\n    pub fn name(\u0026self) -\u003e \u0026str {\n        match self {\n            Level::Fine =\u003e FINE,\n            Level::Trace =\u003e TRACE,\n            Level::Debug =\u003e DEBUG,\n            Level::Info =\u003e INFO,\n            Level::Warn =\u003e WARN,\n            Level::Error =\u003e ERROR,\n            Level::Fatal =\u003e FATAL,\n        }\n    }\n}\n",
+    "original_code": "use serde::{Deserialize, Serialize};\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum Level {\n    Fine,\n    Trace,\n    Debug,\n    Info,\n    Warn,\n    Error,\n    Fatal,\n}\n\npub const FINE: \u0026str = \"FINE\";\npub const TRACE: \u0026str = \"TRACE\";\npub const DEBUG: \u0026str = \"DEBUG\";\npub const INFO: \u0026str = \"INFO\";\npub const WARN: \u0026str = \"WARN\";\npub const ERROR: \u0026str = \"ERROR\";\npub const FATAL: \u0026str = \"FATAL\";\npub const DEFAULT: \u0026str = INFO;\n\nimpl Default for Level {\n    fn default() -\u003e Self {\n        Level::Info\n    }\n}\n\nimpl Level {\n    pub fn name(\u0026self) -\u003e \u0026str {\n        match self {\n            Level::Fine =\u003e FINE,\n            Level::Trace =\u003e TRACE,\n            Level::Debug =\u003e DEBUG,\n            Level::Info =\u003e INFO,\n            Level::Warn =\u003e WARN,\n            Level::Error =\u003e ERROR,\n            Level::Fatal =\u003e FATAL,\n        }\n    }\n}\n",
+    "path": "src/base/level.rs",
+    "model_usage_metrics": {
+        "Duration": 1039319566,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

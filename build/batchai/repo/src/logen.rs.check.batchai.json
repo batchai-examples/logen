@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use std::thread;\nuse std::{collections::HashMap, sync::mpsc};\n\nuse anyhow::{Context, Result};\nuse serde::{Deserialize, Serialize};\n\n#[derive(Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\")]\npub struct Logen {\n    apps: HashMap\u003cString, Box\u003cdyn crate::AppT\u003e\u003e,\n}\n\nimpl Logen {\n    pub fn from_yaml(yaml: \u0026str) -\u003e Box\u003cSelf\u003e {\n        serde_yaml::from_str(yaml).expect(\u0026format!(\"failed to parse config yaml: {}\", yaml))\n    }\n\n    pub fn init(\u0026mut self) -\u003e Result\u003c()\u003e {\n        for (app_name, app) in \u0026mut self.apps {\n            app.init(app_name.as_str())\n                .with_context(|| format!(\"failed to init app: {}\", app_name))?;\n        }\n        Ok(())\n    }\n\n    pub fn amount_of_apps_which_needs_console(\u0026self) -\u003e u32 {\n        let mut r = 0 as u32;\n        for app in self.apps.values() {\n            if app.need_console() {\n                r += 1;\n            }\n        }\n        return r;\n    }\n\n    pub fn generate(\u0026'static self) -\u003e Result\u003c()\u003e {\n        let mut app_handles = vec![];\n        let apps = \u0026self.apps;\n        let (sender, rx) = mpsc::channel::\u003ccrate::Line\u003e();\n\n        let console_h = thread::spawn(move || {\n            for line in rx {\n                if self.amount_of_apps_which_needs_console() == 1 {\n                    println!(\"{}\", line.text);\n                } else {\n                    println!(\"{} | {}\", line.name, line.text);\n                }\n            }\n        });\n\n        for (app_name, app) in apps {\n            let target_console = crate::ConsoleSender::new(\u0026sender);\n            let app_h = thread::spawn(move || {\n                match app.generate(target_console) {\n                    Err(err) =\u003e println!(\n                        \"failed to generate log from app `{}`, cause: {}\",\n                        app_name, err\n                    ),\n                    Ok(()) =\u003e {}\n                };\n            });\n            app_handles.push(app_h);\n        }\n\n        for app_h in app_handles {\n            app_h.join().unwrap(); //TODO\n        }\n\n        drop(sender);\n        console_h.join().unwrap(); //TODO\n\n        Ok(())\n    }\n}\n",
+    "original_code": "use std::thread;\nuse std::{collections::HashMap, sync::mpsc};\n\nuse anyhow::{Context, Result};\nuse serde::{Deserialize, Serialize};\n\n#[derive(Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\")]\npub struct Logen {\n    apps: HashMap\u003cString, Box\u003cdyn crate::AppT\u003e\u003e,\n}\n\nimpl Logen {\n    pub fn from_yaml(yaml: \u0026str) -\u003e Box\u003cSelf\u003e {\n        serde_yaml::from_str(yaml).expect(\u0026format!(\"failed to parse config yaml: {}\", yaml))\n    }\n\n    pub fn init(\u0026mut self) -\u003e Result\u003c()\u003e {\n        for (app_name, app) in \u0026mut self.apps {\n            app.init(app_name.as_str())\n                .with_context(|| format!(\"failed to init app: {}\", app_name))?;\n        }\n        Ok(())\n    }\n\n    pub fn amount_of_apps_which_needs_console(\u0026self) -\u003e u32 {\n        let mut r = 0 as u32;\n        for app in self.apps.values() {\n            if app.need_console() {\n                r += 1;\n            }\n        }\n        return r;\n    }\n\n    pub fn generate(\u0026'static self) -\u003e Result\u003c()\u003e {\n        let mut app_handles = vec![];\n        let apps = \u0026self.apps;\n        let (sender, rx) = mpsc::channel::\u003ccrate::Line\u003e();\n\n        let console_h = thread::spawn(move || {\n            for line in rx {\n                if self.amount_of_apps_which_needs_console() == 1 {\n                    println!(\"{}\", line.text);\n                } else {\n                    println!(\"{} | {}\", line.name, line.text);\n                }\n            }\n        });\n\n        for (app_name, app) in apps {\n            let target_console = crate::ConsoleSender::new(\u0026sender);\n            let app_h = thread::spawn(move || {\n                match app.generate(target_console) {\n                    Err(err) =\u003e println!(\n                        \"failed to generate log from app `{}`, cause: {}\",\n                        app_name, err\n                    ),\n                    Ok(()) =\u003e {}\n                };\n            });\n            app_handles.push(app_h);\n        }\n\n        for app_h in app_handles {\n            app_h.join().unwrap(); //TODO\n        }\n\n        drop(sender);\n        console_h.join().unwrap(); //TODO\n\n        Ok(())\n    }\n}\n",
+    "path": "src/logen.rs",
+    "model_usage_metrics": {
+        "Duration": 14879362433,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

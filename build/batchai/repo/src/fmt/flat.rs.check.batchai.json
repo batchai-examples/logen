@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use anyhow::Result;\nuse chrono::{DateTime, Utc};\nuse serde::{Deserialize, Serialize};\n\nuse crate::{Template, TemplateEngine};\n\nuse crate::FormatterT;\n\npub const DEFAULT_TIME_FORMAT: \u0026str = \"%Y-%m-%d %H:%M:%S\";\npub const DEFAULT_PATTERN: \u0026str = r#\"{{timestamp}} \u003c{{level | upper | align_left(width=5)}}\u003e [{{mdc | map}}] {{logger}} {{file}}/{{line}} {{method}} - {{message}}\"#;\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub struct Formatter {\n    #[serde(default = \"Formatter::default_time_format\")]\n    time_format: String,\n\n    #[serde(default = \"Formatter::default_pattern\")]\n    pattern: String,\n}\n\nimpl Default for Formatter {\n    fn default() -\u003e Self {\n        Self {\n            time_format: Self::default_time_format(),\n            pattern: Self::default_pattern(),\n        }\n    }\n}\n\nimpl Formatter {\n    pub fn default_time_format() -\u003e String {\n        DEFAULT_TIME_FORMAT.to_string()\n    }\n\n    pub fn default_pattern() -\u003e String {\n        DEFAULT_PATTERN.to_string()\n    }\n\n    pub fn init(\u0026self, tmpl_name: \u0026str, tmpl: \u0026mut TemplateEngine) -\u003e Result\u003c()\u003e {\n        tmpl.add_template(tmpl_name, \u0026self.pattern)\n    }\n}\n\nimpl FormatterT for Formatter {\n    fn format_timestamp(\u0026self, timestamp: \u0026DateTime\u003cUtc\u003e) -\u003e String {\n        timestamp.format(\u0026self.time_format).to_string()\n    }\n\n    fn format(\u0026self, t: \u0026Template, template_name: \u0026str) -\u003e Result\u003cString\u003e {\n        t.render(template_name)\n    }\n}\n",
+    "original_code": "use anyhow::Result;\nuse chrono::{DateTime, Utc};\nuse serde::{Deserialize, Serialize};\n\nuse crate::{Template, TemplateEngine};\n\nuse crate::FormatterT;\n\npub const DEFAULT_TIME_FORMAT: \u0026str = \"%Y-%m-%d %H:%M:%S\";\npub const DEFAULT_PATTERN: \u0026str = r#\"{{timestamp}} \u003c{{level | upper | align_left(width=5)}}\u003e [{{mdc | map}}] {{logger}} {{file}}/{{line}} {{method}} - {{message}}\"#;\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub struct Formatter {\n    #[serde(default = \"Formatter::default_time_format\")]\n    time_format: String,\n\n    #[serde(default = \"Formatter::default_pattern\")]\n    pattern: String,\n}\n\nimpl Default for Formatter {\n    fn default() -\u003e Self {\n        Self {\n            time_format: Self::default_time_format(),\n            pattern: Self::default_pattern(),\n        }\n    }\n}\n\nimpl Formatter {\n    pub fn default_time_format() -\u003e String {\n        DEFAULT_TIME_FORMAT.to_string()\n    }\n\n    pub fn default_pattern() -\u003e String {\n        DEFAULT_PATTERN.to_string()\n    }\n\n    pub fn init(\u0026self, tmpl_name: \u0026str, tmpl: \u0026mut TemplateEngine) -\u003e Result\u003c()\u003e {\n        tmpl.add_template(tmpl_name, \u0026self.pattern)\n    }\n}\n\nimpl FormatterT for Formatter {\n    fn format_timestamp(\u0026self, timestamp: \u0026DateTime\u003cUtc\u003e) -\u003e String {\n        timestamp.format(\u0026self.time_format).to_string()\n    }\n\n    fn format(\u0026self, t: \u0026Template, template_name: \u0026str) -\u003e Result\u003cString\u003e {\n        t.render(template_name)\n    }\n}\n",
+    "path": "src/fmt/flat.rs",
+    "model_usage_metrics": {
+        "Duration": 1046943627,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

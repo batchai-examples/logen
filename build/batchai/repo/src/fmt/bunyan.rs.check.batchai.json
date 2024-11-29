@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use serde_json::{json, Value};\n\nuse crate::{level, Template};\n\npub const LEVEL_TRACE: i8 = 10;\npub const LEVEL_DEBUG: i8 = 20;\npub const LEVEL_INFO: i8 = 30;\npub const LEVEL_WARN: i8 = 40;\npub const LEVEL_ERROR: i8 = 50;\npub const LEVEL_FATAL: i8 = 60;\npub const LEVEL_DEFAULT: i8 = LEVEL_INFO;\n\n// for ex., 2020-07-09T17:47:21.918Z\npub const TIME_FORMAT: \u0026str = \"%Y-%m-%dT%H:%M:%S%.3f\";\n\npub fn level_i8(name: \u0026str) -\u003e i8 {\n    match name {\n        level::FINE =\u003e LEVEL_TRACE,\n        level::TRACE =\u003e LEVEL_TRACE,\n        level::DEBUG =\u003e LEVEL_DEBUG,\n        level::INFO =\u003e LEVEL_INFO,\n        level::WARN =\u003e LEVEL_WARN,\n        level::ERROR =\u003e LEVEL_ERROR,\n        level::FATAL =\u003e LEVEL_FATAL,\n        _ =\u003e LEVEL_DEFAULT,\n    }\n}\n\npub fn build(t: \u0026Template, level_name: \u0026str) -\u003e Value {\n    let level = level_i8(level_name);\n\n    json!({\n        \"name\": t.get(\"app\"),\n        \"hostname\": t.get(\"host\"),\n        \"pid\": t.get(\"pid\"),\n        \"id\": t.get(\"logger\"),\n        \"level\": level,\n        \"msg\": t.get(\"message\"),\n        \"time\": t.get(\"timestamp\"),\n        \"v\": 0\n    })\n}\n",
+    "original_code": "use serde_json::{json, Value};\n\nuse crate::{level, Template};\n\npub const LEVEL_TRACE: i8 = 10;\npub const LEVEL_DEBUG: i8 = 20;\npub const LEVEL_INFO: i8 = 30;\npub const LEVEL_WARN: i8 = 40;\npub const LEVEL_ERROR: i8 = 50;\npub const LEVEL_FATAL: i8 = 60;\npub const LEVEL_DEFAULT: i8 = LEVEL_INFO;\n\n// for ex., 2020-07-09T17:47:21.918Z\npub const TIME_FORMAT: \u0026str = \"%Y-%m-%dT%H:%M:%S%.3f\";\n\npub fn level_i8(name: \u0026str) -\u003e i8 {\n    match name {\n        level::FINE =\u003e LEVEL_TRACE,\n        level::TRACE =\u003e LEVEL_TRACE,\n        level::DEBUG =\u003e LEVEL_DEBUG,\n        level::INFO =\u003e LEVEL_INFO,\n        level::WARN =\u003e LEVEL_WARN,\n        level::ERROR =\u003e LEVEL_ERROR,\n        level::FATAL =\u003e LEVEL_FATAL,\n        _ =\u003e LEVEL_DEFAULT,\n    }\n}\n\npub fn build(t: \u0026Template, level_name: \u0026str) -\u003e Value {\n    let level = level_i8(level_name);\n\n    json!({\n        \"name\": t.get(\"app\"),\n        \"hostname\": t.get(\"host\"),\n        \"pid\": t.get(\"pid\"),\n        \"id\": t.get(\"logger\"),\n        \"level\": level,\n        \"msg\": t.get(\"message\"),\n        \"time\": t.get(\"timestamp\"),\n        \"v\": 0\n    })\n}\n",
+    "path": "src/fmt/bunyan.rs",
+    "model_usage_metrics": {
+        "Duration": 1043548941,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

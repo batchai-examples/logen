@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "pub mod simple;\npub use simple::App as SimpleApp;\n\nuse crate::ConsoleSender;\nuse anyhow::Result;\nuse serde::{Deserialize, Serialize};\n\n#[typetag::serde(tag = \"type\")]\npub trait AppT: Sync {\n    fn init(\u0026mut self, name: \u0026str) -\u003e Result\u003c()\u003e;\n    fn generate(\u0026self, console: ConsoleSender) -\u003e Result\u003c()\u003e;\n    fn need_console(\u0026self) -\u003e bool;\n}\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum AppType {\n    Simple,\n}\n",
+    "original_code": "pub mod simple;\npub use simple::App as SimpleApp;\n\nuse crate::ConsoleSender;\nuse anyhow::Result;\nuse serde::{Deserialize, Serialize};\n\n#[typetag::serde(tag = \"type\")]\npub trait AppT: Sync {\n    fn init(\u0026mut self, name: \u0026str) -\u003e Result\u003c()\u003e;\n    fn generate(\u0026self, console: ConsoleSender) -\u003e Result\u003c()\u003e;\n    fn need_console(\u0026self) -\u003e bool;\n}\n\n#[derive(Debug, Serialize, Deserialize)]\n#[serde(rename_all = \"snake_case\", deny_unknown_fields)]\npub enum AppType {\n    Simple,\n}\n",
+    "path": "src/apps/mod.rs",
+    "model_usage_metrics": {
+        "Duration": 1036282698,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

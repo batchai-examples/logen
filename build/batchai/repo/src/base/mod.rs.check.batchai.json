@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use chrono::{DateTime, Utc};\n\npub mod level;\npub use level::Level;\n\nmod output;\npub use output::{Format as OutputFormat, Output};\n\npub mod tpl;\npub use tpl::{Engine as TemplateEngine, Template};\n\nmod ts;\npub use ts::Timestamp;\n\n#[derive(Clone)]\npub struct Line {\n    pub name: String,\n    pub timestamp: DateTime\u003cUtc\u003e,\n    pub text: String,\n}\n",
+    "original_code": "use chrono::{DateTime, Utc};\n\npub mod level;\npub use level::Level;\n\nmod output;\npub use output::{Format as OutputFormat, Output};\n\npub mod tpl;\npub use tpl::{Engine as TemplateEngine, Template};\n\nmod ts;\npub use ts::Timestamp;\n\n#[derive(Clone)]\npub struct Line {\n    pub name: String,\n    pub timestamp: DateTime\u003cUtc\u003e,\n    pub text: String,\n}\n",
+    "path": "src/base/mod.rs",
+    "model_usage_metrics": {
+        "Duration": 1026737719,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

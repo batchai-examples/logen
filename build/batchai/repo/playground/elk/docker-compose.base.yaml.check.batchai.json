@@ -1,0 +1,51 @@
+{
+    "has_issue": true,
+    "overall_severity": "minor",
+    "issues": [
+        {
+            "short_description": "Port mapping for fluentd is incorrect",
+            "detailed_explaination": "The port mapping for fluentd is specified as '127.0.0.1:127.0.0.1:24224:24224', which is invalid. The correct format should be 'host_ip:host_port:container_port'.",
+            "suggestion": "Change the port mapping to '127.0.0.1:24224:24224'",
+            "issue_line_begin": 35,
+            "issue_line_end": 35,
+            "issue_reference_urls": [
+                "https://docs.docker.com/compose/compose-file/#ports"
+            ],
+            "severity": "minor",
+            "severity_reason": "The issue does not affect the functionality of the service, but it is incorrect and should be fixed for clarity."
+        },
+        {
+            "short_description": "Port mapping for kibana is incorrect",
+            "detailed_explaination": "The port mapping for kibana is specified as '127.0.0.1:5601:5601', which is correct, but the comment above it suggests that it should be enabled by uncommenting a section. If this is not intended, the comment should be removed.",
+            "suggestion": "If enabling EFK is not intended, remove the comment and the corresponding service configuration",
+            "issue_line_begin": 47,
+            "issue_line_end": 50,
+            "issue_reference_urls": [
+                "https://docs.docker.com/compose/compose-file/#ports"
+            ],
+            "severity": "minor",
+            "severity_reason": "The issue does not affect the functionality of the service, but it is incorrect and should be fixed for clarity."
+        }
+    ],
+    "fixed_code": "version: '2.2'\n\n#networks:\n#  default:\n#    driver: bridge\n#  bizxdockerdev_default:\n#    external: true\n#  bizx-docker-dev_default:\n#    external: true\n\n\nservices:\n\n  # to enable EFK, check below example\n  # elasticsearch:\n  #   container_name: bts.elasticsearch\n  #   extends:\n  #     file:   ./docker-compose.base.yml\n  #     service: elasticsearch\n  elasticsearch:\n    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0\n    ports:\n      - 127.0.0.1:9200:9200\n    environment:\n      - bootstrap.memory_lock=true\n      - cluster.name=docker-cluster\n      - cluster.routing.allocation.disk.threshold_enabled=false\n      - discovery.type=single-node\n      - ES_JAVA_OPTS=-XX:UseAVX=2 -Xms1g -Xmx1g\n    healthcheck:\n      interval: 30s\n      retries: 5\n      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:9200/\n\n  # to enable Elastic APM, check below example\n  # apm-server:\n  #   container_name: bts.apm-server\n  #   extends:\n  #     file:   ./docker-compose.base.yml\n  #     service: apm-server\n  #   depends_on:\n  #     - elasticsearch\n  apm-server:\n    image: docker.elastic.co/apm/apm-server:7.7.0\n    ports:\n      - 127.0.0.1:8200:8200\n    cap_add: [\"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\"]\n    cap_drop: [\"ALL\"]\n    command: \u003e\n       apm-server -e\n         -E apm-server.rum.enabled=true\n         -E setup.kibana.host=kibana:5601\n         -E setup.template.settings.index.number_of_replicas=0\n         -E apm-server.kibana.enabled=true\n         -E apm-server.kibana.host=kibana:5601\n         -E output.elasticsearch.hosts=[\"elasticsearch:9200\"]\n    healthcheck:\n      interval: 10s\n      retries: 12\n      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8200/\n",
+    "original_code": "version: '2.2'\n\n#networks:\n#  default:\n#    driver: bridge\n#  bizxdockerdev_default:\n#    external: true\n#  bizx-docker-dev_default:\n#    external: true\n\n\nservices:\n\n  # to enable EFK, check below example\n  # elasticsearch:\n  #   container_name: bts.elasticsearch\n  #   extends:\n  #     file:   ./docker-compose.base.yml\n  #     service: elasticsearch\n  elasticsearch:\n    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0\n    ports:\n      - 127.0.0.1:9200:9200\n    environment:\n      - bootstrap.memory_lock=true\n      - cluster.name=docker-cluster\n      - cluster.routing.allocation.disk.threshold_enabled=false\n      - discovery.type=single-node\n      - ES_JAVA_OPTS=-XX:UseAVX=2 -Xms1g -Xmx1g\n    ulimits:\n      memlock:\n        hard: -1\n        soft: -1\n    healthcheck:\n      interval: 20s\n      retries: 10\n      test: curl -s http://localhost:9200/_cluster/health | grep -vq '\"status\":\"red\"'\n\n\n  # to enable EFK, check below example\n  # fluentd:\n  #   container_name: fluentd\n  #   extends:\n  #     file:   ./docker-compose.base.yml\n  #     service: fluentd\n  #   depends_on:\n  #     - elasticsearch\n  fluentd:\n    build:\n      context: ./fluentd\n    volumes:\n      - ./fluentd/conf:/fluentd/etc\n    ports:\n      - 127.0.0.1:127.0.0.1:24224:24224\n      - 127.0.0.1:127.0.0.1:24224:24224/udp\n\n  # to enable EFK, check below example\n  # kibana:\n  #   container_name: bts.kibana\n  #   extends:\n  #     file:   ./docker-compose.base.yml\n  #     service: kibana\n  #   depends_on:\n  #     - elasticsearch\n  kibana:\n    image: docker.elastic.co/kibana/kibana:7.7.0\n    environment:\n      SERVER_HOST: 0.0.0.0\n      ELASTICSEARCH_URL: http://elasticsearch:9200\n      ELASTICSEARCH_HOSTS: http://elasticsearch:9200\n    ports:\n      - 127.0.0.1:5601:5601\n    healthcheck:\n      interval: 10s\n      retries: 20\n      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:5601/api/status\n\n  # to enable Elastic APM, check below example\n  # apm-server:\n  #   container_name: bts.apm-server\n  #   extends:\n  #     file:   ./docker-compose.base.yml\n  #     service: apm-server\n  #   depends_on:\n  #     - elasticsearch\n  apm-server:\n    image: docker.elastic.co/apm/apm-server:7.7.0\n    ports:\n      - 127.0.0.1:8200:8200\n    cap_add: [\"CHOWN\", \"DAC_OVERRIDE\", \"SETGID\", \"SETUID\"]\n    cap_drop: [\"ALL\"]\n    command: \u003e\n       apm-server -e\n         -E apm-server.rum.enabled=true\n         -E setup.kibana.host=kibana:5601\n         -E setup.template.settings.index.number_of_replicas=0\n         -E apm-server.kibana.enabled=true\n         -E apm-server.kibana.host=kibana:5601\n         -E output.elasticsearch.hosts=[\"elasticsearch:9200\"]\n    healthcheck:\n      interval: 10s\n      retries: 12\n      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8200/\n",
+    "path": "playground/elk/docker-compose.base.yaml",
+    "model_usage_metrics": {
+        "Duration": 17976408180,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}

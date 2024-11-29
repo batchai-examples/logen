@@ -1,0 +1,26 @@
+{
+    "has_issue": false,
+    "overall_severity": "",
+    "issues": [],
+    "fixed_code": "use rand::Rng;\n\npub fn choose_arr\u003cT\u003e(arr: \u0026Vec\u003cT\u003e) -\u003e \u0026T\nwhere\n    T: Sized,\n{\n    let max = arr.len();\n    if arr.len() == 0 {\n        panic!(\"arr should configure at least 1 element\");\n    }\n\n    let mut k = 0;\n    let mut rng = rand::thread_rng();\n\n    while k \u003c 10 {\n        let i = rng.gen_range(0..max * 2);\n        if i \u003c max {\n            return \u0026arr[i];\n        }\n\n        k = k + 1;\n    }\n\n    return \u0026arr[0];\n}\n",
+    "original_code": "use rand::Rng;\n\npub fn choose_arr\u003cT\u003e(arr: \u0026Vec\u003cT\u003e) -\u003e \u0026T\nwhere\n    T: Sized,\n{\n    let max = arr.len();\n    if arr.len() == 0 {\n        panic!(\"arr should configure at least 1 element\");\n    }\n\n    let mut k = 0;\n    let mut rng = rand::thread_rng();\n\n    while k \u003c 10 {\n        let i = rng.gen_range(0..max * 2);\n        if i \u003c max {\n            return \u0026arr[i];\n        }\n\n        k = k + 1;\n    }\n\n    return \u0026arr[0];\n}\n",
+    "path": "src/util/rand.rs",
+    "model_usage_metrics": {
+        "Duration": 6504047518,
+        "OpenAiUsage": {
+            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "total_tokens": 0,
+            "completion_tokens_details": {
+                "accepted_prediction_tokens": 0,
+                "audio_tokens": 0,
+                "reasoning_tokens": 0,
+                "rejected_prediction_tokens": 0
+            },
+            "prompt_tokens_details": {
+                "audio_tokens": 0,
+                "cached_tokens": 0
+            }
+        }
+    }
+}
